@@ -1,21 +1,25 @@
+//Libraries
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from 'react';
+import GlobalStyle from "./styles/GlobalStyles";
 
-
+//Pages//
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Home from "./pages/Home"
-import Profit from "./pages/Profit"
-import Debt from "./pages/Debt"
+import Deposit from "./pages/Deposit"
+import Withdraw from "./pages/Withdraw"
 
 export default function App() {
     return (
     <BrowserRouter>
+        <GlobalStyle />
         <Routes>
             <Route path="/" element={<Login/>} />
             <Route path="/cadastro" element={<Signup/>} />
             <Route path="/home" element={<Home/>} />
-            <Route path="/nova-entrada" element={<Profit/>} />
-            <Route path="/nova-entrada" element={<Debt/>} />
+            <Route path="/nova-entrada" element={<Deposit/>} />
+            <Route path="/nova-entrada" element={<Withdraw/>} />
         </Routes>
     </BrowserRouter>
     )

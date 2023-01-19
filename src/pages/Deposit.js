@@ -1,4 +1,4 @@
-export default function Debt(){
+export default function Deposit(){
     return (
         <>
         </>

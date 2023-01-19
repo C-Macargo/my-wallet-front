@@ -1,4 +1,4 @@
-export default function Profit(){
+export default function Withdraw(){
     return (
         <>
         </>
