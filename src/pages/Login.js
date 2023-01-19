@@ -29,7 +29,7 @@ const Title = styled.h1`
   font-weight: 400;
   font-size: 32px;
   line-height: 50px;
-  color: black;
+  color: #FFFFFF;
   margin-top:159px;
   margin-bottom:24px;
 `;
