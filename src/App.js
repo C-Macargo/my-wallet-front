@@ -19,7 +19,7 @@ export default function App() {
             <Route path="/cadastro" element={<Signup/>} />
             <Route path="/home" element={<Home/>} />
             <Route path="/nova-entrada" element={<Deposit/>} />
-            <Route path="/nova-entrada" element={<Withdraw/>} />
+            <Route path="/nova-saida" element={<Withdraw/>} />
         </Routes>
     </BrowserRouter>
     )
