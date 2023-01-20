@@ -4,7 +4,6 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { IoRemoveCircleOutline } from "react-icons/io5";
 
 function Home() {
-
   return (
     <PageContainer>
       <TopContainer>
@@ -15,11 +14,11 @@ function Home() {
       <BottomContainer>
         <CommandBox>
           <p>Nova entrada</p>
-          <PlusIcon/>
+          <PlusIcon />
         </CommandBox>
         <CommandBox>
           <p>Nova saída</p>
-          <MinusIcon/>
+          <MinusIcon />
         </CommandBox>
       </BottomContainer>
     </PageContainer>
@@ -79,29 +78,29 @@ const CommandBox = styled.div`
   background: #a328d6;
   border-radius: 5px;
   p {
-    width:1px;
+    width: 1px;
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
     position: absolute;
     bottom: 15px;
     left: 10px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 `;
 
 const MinusIcon = styled(IoRemoveCircleOutline)`
-  top:10px;
-  left:10px;
-  position:absolute;
+  top: 10px;
+  left: 10px;
+  position: absolute;
   font-size: 22px;
   color: #ffffff;
 `;
 
 const PlusIcon = styled(IoAddCircleOutline)`
-  top:10px;
-  left:10px;
-  position:absolute;
+  top: 10px;
+  left: 10px;
+  position: absolute;
   font-size: 22px;
   color: #ffffff;
 `;

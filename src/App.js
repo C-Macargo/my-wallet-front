@@ -1,7 +1,6 @@
 //Libraries
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from 'react';
-import GlobalStyle from "./styles/GlobalStyles";
 
 //Pages//
 import Login from "./pages/Login"
@@ -13,7 +12,6 @@ import Withdraw from "./pages/Withdraw"
 export default function App() {
     return (
     <BrowserRouter>
-        <GlobalStyle />
         <Routes>
             <Route path="/" element={<Login/>} />
             <Route path="/cadastro" element={<Signup/>} />
