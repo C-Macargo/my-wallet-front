@@ -1,13 +1,46 @@
 import styled from "styled-components";
+import { useState , useContext} from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { TokenContext } from "../AppContext/TokenContext";
 
 function LoginForm() {
+  const { setToken } = useContext(TokenContext)
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  function login(s){
+    
+      const data = {
+        email: email,
+        password: password,
+      }
+      const postPrommise = axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, data);
+              postPrommise.then(success => {
+                  alert(success.statusText)
+                  setToken(success.data)
+                  navigate("/home")
+              });
+              postPrommise.catch(error => {
+                  alert(error.message)
+                  console.log(error)
+              });
+    
+      s.preventDefault()
+     }
+
+
+
+
+
   return (
-    <Form>
+    <Form onSubmit={login}>
       <Label htmlFor="email">
-        <Input placeholder="E-mail" id="email" type="text"></Input>
+        <Input placeholder="E-mail" id="email" type="text" value={email} onChange={(s) => setEmail(s.currentTarget.value)}></Input>
       </Label>
       <Label htmlFor="password">
-        <Input placeholder="Senha" id="password" type="text"></Input>
+        <Input placeholder="Senha" id="password" type="text" value={password} onChange={(s) => setPassword(s.currentTarget.value)} ></Input>
       </Label>
       <SubmitButton type="submit" id="submitbutton">
         <p>Entrar</p>

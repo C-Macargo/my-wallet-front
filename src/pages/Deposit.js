@@ -2,6 +2,12 @@ import styled from "styled-components";
 import DepositForm from "../components/DepositForm";
 
 export default function Deposit(){
+
+  
+
+
+
+
     return (
         <PageContainer>
             <Title><p>Nova entrada</p></Title>

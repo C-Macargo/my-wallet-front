@@ -9,16 +9,25 @@ import Home from "./pages/Home"
 import Deposit from "./pages/Deposit"
 import Withdraw from "./pages/Withdraw"
 
+//Contexts
+import { TokenContext } from "./AppContext/TokenContext";
+
 export default function App() {
+
+
+    const [token, setToken] = useState([])
+
     return (
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Login/>} />
-            <Route path="/cadastro" element={<Signup/>} />
-            <Route path="/home" element={<Home/>} />
-            <Route path="/nova-entrada" element={<Deposit/>} />
-            <Route path="/nova-saida" element={<Withdraw/>} />
-        </Routes>
-    </BrowserRouter>
+    <TokenContext.Provider value={{ token, setToken }}>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Login/>} />
+                <Route path="/cadastro" element={<Signup/>} />
+                <Route path="/home" element={<Home/>} />
+                <Route path="/nova-entrada" element={<Deposit/>} />
+                <Route path="/nova-saida" element={<Withdraw/>} />
+            </Routes>
+        </BrowserRouter>
+    </TokenContext.Provider>
     )
     }

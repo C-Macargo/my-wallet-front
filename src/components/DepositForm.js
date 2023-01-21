@@ -1,13 +1,45 @@
 import styled from "styled-components";
+import { useState , useContext} from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { TokenContext } from "../AppContext/TokenContext";
 
-function DepositForm() {
+
+
+  function DepositForm() {
+    const navigate = useNavigate();
+    const [value, setValue] = useState("")
+    const [description, setDescription] = useState("")
+    const { token } = useContext(TokenContext);
+    const usertoken = token;
+    function deposit(s){
+      
+        const data = {
+          value: value,
+          description : description,
+        }
+        const header = { headers: { Authorization: `Bearer ${usertoken}` } };
+        const postPrommise = axios.post(`${process.env.REACT_APP_API_URL}/wallet/deposit`, data, header);
+                postPrommise.then(success => {
+                    alert(success.statusText)
+                    navigate("/home")
+                });
+                postPrommise.catch(error => {
+                    alert(error.message)
+                    console.log(error)
+                });
+      
+        s.preventDefault()
+       }
+
+
   return (
-    <Form>
+    <Form onSubmit={deposit}>
       <Label htmlFor="valor">
-        <Input placeholder="Valor" id="valor" type="text"></Input>
+        <Input placeholder="Valor" id="valor" type="text" value={value} onChange={(s) => setValue(s.currentTarget.value)}></Input>
       </Label>
       <Label htmlFor="descricao">
-        <Input placeholder="Descrição" id="descricao" type="text"></Input>
+        <Input placeholder="Descrição" id="descricao" type="text" value={description} onChange={(s) => setDescription(s.currentTarget.value)}></Input>
       </Label>
       <SubmitButton type="submit" id="submitbutton">
         <p>Salvar entrada</p>
