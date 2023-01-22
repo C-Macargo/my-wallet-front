@@ -17,9 +17,10 @@ import { TokenContext } from "../AppContext/TokenContext";
         const data = {
           value: value,
           description : description,
+          type : "deposit"
         }
         const header = { headers: { Authorization: `Bearer ${usertoken}` } };
-        const postPrommise = axios.post(`${process.env.REACT_APP_API_URL}/wallet/deposit`, data, header);
+        const postPrommise = axios.post(`${process.env.REACT_APP_API_URL}/transaction`, data, header);
                 postPrommise.then(success => {
                     alert(success.statusText)
                     navigate("/home")

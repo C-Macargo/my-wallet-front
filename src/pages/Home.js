@@ -19,17 +19,21 @@ function Home() {
     const getRegistry = axios.get(URL, header);
     getRegistry.then((response) => {
       setHistory(response.data);
-      if (history && history.wallet && Array.isArray(history.wallet) && history.wallet.length > 0) {
-        calcSaldo()
-    }
+      getBalance()
     });
-  }, [history]);
+  }, [setHistory]);
 
-  function calcSaldo(){
-    let filanSaldo = 0
-    history.wallet.map((s) => s.type === 'withdraw' ? filanSaldo -= s.value : filanSaldo += parseInt(s.value))
-    setSaldo(filanSaldo)
+  function getBalance(){
+    const URL = `${process.env.REACT_APP_API_URL}/balance`;
+    const header = { headers: { Authorization: `Bearer ${usertoken}` } };
+    const getBalance = axios.get(URL, header);
+    getBalance.then((response) => {
+      setSaldo(response.data);
+      
+  });
   }
+  
+
 
   return (
 
@@ -45,15 +49,17 @@ function Home() {
         ) : (
           history.wallet.map((entry, index) => (
             <Entry key={index}>
+            <div style={{display:'flex'} }>
             <p2>{entry.date}</p2>
             <p>{entry.description}</p>
+            </div>
             <p className={entry.type === 'withdraw' ? 'red' : entry.type === 'deposit' ? 'green' : ''}>
               {entry.value}
             </p>
           </Entry>
           ))
         )}
-        
+
         <SaldoContainer>
         <div style={{display:'flex',alignItems:'center', justifyContent:'space-between'}}>
           <h1 style={{marginLeft:30}}> Saldo: </h1>
@@ -175,6 +181,22 @@ const Entry = styled.div`
   margin-top:9px;
   display:flex;
   justify-content:space-between;
+
+  p{
+    margin-left:8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+  }
+
+  p2{
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #C6C6C6;
+  }
 
 `;
 const SaldoContainer = styled.div`
