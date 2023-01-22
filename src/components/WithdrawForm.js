@@ -36,7 +36,7 @@ import { TokenContext } from "../AppContext/TokenContext";
     
     <Form onSubmit={withdraw}>
       <Label htmlFor="valor">
-      <Input placeholder="Valor" id="valor" type="text" value={value} onChange={(s) => setValue(s.currentTarget.value)}></Input>
+      <Input placeholder="Valor" id="valor" type="text" value={value} onChange={(s) => setValue(s.currentTarget.value.replace(/,/g, '.'))}></Input>
       </Label>
       <Label htmlFor="descricao">
       <Input placeholder="Descrição" id="descricao" type="text" value={description} onChange={(s) => setDescription(s.currentTarget.value)}></Input>

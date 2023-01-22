@@ -1,14 +1,23 @@
 import styled from "styled-components";
 import RegisterForm from "../components/Registerform";
+import { useNavigate } from "react-router-dom";
+
 
 function Signup() {
+
+  const navigate = useNavigate();
+
+
   return (
     <PageContainer>
       <Title>My Wallet</Title>
       <RegisterForm>
       </RegisterForm>
       <StyledLink>
-        <p>Já tem uma conta? Entre agora!</p>
+      <p           
+          onClick={() => {
+          navigate('/');
+        }}>Já tem uma conta? Entre agora!</p>
       </StyledLink>
     </PageContainer>
   );

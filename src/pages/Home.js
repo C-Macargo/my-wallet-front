@@ -5,9 +5,12 @@ import { IoRemoveCircleOutline } from "react-icons/io5";
 import { TokenContext } from "../AppContext/TokenContext";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
+
+
 
 function Home() {
+  const navigate = useNavigate();
   const [saldo, setSaldo] = useState(0);
   const [history, setHistory] = useState([]);
   const { token } = useContext(TokenContext);
@@ -21,6 +24,11 @@ function Home() {
       setHistory(response.data);
       getBalance()
     });
+    getRegistry.catch((error) => {
+      alert("Seu token expirou");
+      navigate('/')
+    });
+
   }, [setHistory]);
 
   function getBalance(){
@@ -29,7 +37,6 @@ function Home() {
     const getBalance = axios.get(URL, header);
     getBalance.then((response) => {
       setSaldo(response.data);
-      
   });
   }
   
@@ -40,32 +47,39 @@ function Home() {
     <PageContainer>
       <TopContainer>
         <p>Olá {history.name}!</p>
-        <LeaveIcon />
+        <LeaveIcon 
+        onClick={() => {
+          navigate('/');
+        }}
+        />
+        
       </TopContainer>
       <MiddleContainer>
-
+        <TransactionContainer>
         {!history.wallet || history.wallet.length === 0 ? (
-          <p>Não há registros de entrada ou saída</p>
+          <Title><p>Não há registros de entrada ou saída</p></Title>
         ) : (
           history.wallet.map((entry, index) => (
             <Entry key={index}>
             <div style={{display:'flex'} }>
-            <p2>{entry.date}</p2>
-            <p>{entry.description}</p>
+            <h1>{entry.date}</h1>
+            <h2>{entry.description}</h2>
             </div>
             <p className={entry.type === 'withdraw' ? 'red' : entry.type === 'deposit' ? 'green' : ''}>
-              {entry.value}
+              {Number(entry.value).toFixed(2)}
             </p>
           </Entry>
           ))
         )}
-
+        </TransactionContainer>
+        {history.wallet && history.wallet.length > 0 ? 
         <SaldoContainer>
-        <div style={{display:'flex',alignItems:'center', justifyContent:'space-between'}}>
-          <h1 style={{marginLeft:30}}> Saldo: </h1>
-          <div style={{marginRight:30}}>{saldo}</div>
+          <div style={{display:'flex', justifyContent:'space-between'}}>
+              <h1 style={{marginLeft:30}}> Saldo: </h1>
+              <div style={{marginRight:30}}><h2 className={saldo > 0 ? "green" : "red"}>{saldo}</h2></div>
           </div>
-        </SaldoContainer>
+        </SaldoContainer>: <></>}
+
       </MiddleContainer>
       <BottomContainer>
       <Link to='/nova-entrada'>
@@ -182,7 +196,7 @@ const Entry = styled.div`
   display:flex;
   justify-content:space-between;
 
-  p{
+  h2{
     margin-left:8px;
     font-weight: 400;
     font-size: 16px;
@@ -190,12 +204,15 @@ const Entry = styled.div`
     color: #000000;
   }
 
-  p2{
-    font-family: 'Raleway';
-    font-weight: 400;
+  h1{
+    margin-left:3px;
     font-size: 16px;
     line-height: 19px;
     color: #C6C6C6;
+  }
+
+  p{
+    margin-right:3px;
   }
 
 `;
@@ -203,7 +220,31 @@ const SaldoContainer = styled.div`
   width: 100%;
   position:absolute;
   bottom:10px;
+
+  .red{
+    color:red;
+}
+.green{
+    color:green;
+}
   
 `;
 
+const TransactionContainer = styled.div`
+  width: 100%;
+  height:93%;
+  overflow:auto;
+  
+`;
 
+const Title = styled.div`
+font-size: 20px;
+color: #868686;
+position:absolute;
+text-align: center;
+align-items:center;
+margin:auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`

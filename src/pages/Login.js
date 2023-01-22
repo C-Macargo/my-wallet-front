@@ -1,15 +1,23 @@
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
+
+  const navigate = useNavigate();
+
+
   return (
     <PageContainer>
       <Title>My Wallet</Title>
       <LoginForm>
       </LoginForm>
       <StyledLink>
-        <p>Primeira vez? Cadastre-se!</p>
+        <p           
+          onClick={() => {
+          navigate('/cadastro');
+        }}>Primeira vez? Cadastre-se!</p>
       </StyledLink>
     </PageContainer>
   );
