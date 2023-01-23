@@ -25,6 +25,7 @@ function Home() {
       getBalance()
     });
     getRegistry.catch((error) => {
+      console.log(error)
       alert("Seu token expirou");
       navigate('/')
     });

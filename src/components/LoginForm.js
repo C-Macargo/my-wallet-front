@@ -19,6 +19,7 @@ function LoginForm() {
       const postPrommise = axios.post(`${process.env.REACT_APP_API_URL}/sign-in`, data);
               postPrommise.then(success => {
                   navigate("/home")
+                  setToken(success.data)
               });
               postPrommise.catch(error => {
                   alert(error.response.data)
